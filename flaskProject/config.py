@@ -16,5 +16,6 @@ class Config(object):
     MAIL_PASSWORD = 'c459339e76a988'
     #ADMINS = os.environ.get('ADMINS') or 'admin@gmail.com'
     ADMINS = 'admin@gmail.com'
+    UPLOAD_FOLDER = 'uploads'
 
 

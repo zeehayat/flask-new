@@ -1,7 +1,10 @@
+import os
 from datetime import datetime
+from urllib.parse import urlparse
 
 from flask import render_template, flash, redirect, url_for, request
 from flask_login import current_user, login_user, logout_user, login_required
+from werkzeug.utils import secure_filename
 
 from app import app, db
 from form import LoginForm, RegistrationForm, EditProfileForm
@@ -43,7 +46,10 @@ def register():
         return redirect(url_for('index'))
     form = RegistrationForm()
     if form.validate_on_submit():
-        user= User(username=form.username.data, email=form.email.data, website=form.website.data)
+        f=form.picture.data
+        filename=secure_filename(f.filename)
+        f.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        user= User(username=form.username.data, email=form.email.data, website=form.website.data, picture=filename)
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()

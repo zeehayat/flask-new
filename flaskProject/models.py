@@ -18,6 +18,7 @@ class User(UserMixin, db.Model):
     about_me = db.Column(db.String(140))
     last_seen = db.Column(db.DateTime, default=datetime.utcnow)
     website=db.Column(db.String())
+    picture=db.Column(db.String())
 
     def __repr__(self):
         return '<User {}>'.format(self.username)

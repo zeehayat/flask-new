@@ -3,7 +3,7 @@
 {% block content %}
 
 <h1>Register</h1>
-<form action="" method="post">
+<form action="" method="post" enctype="multipart/form-data">
     {{ form.hidden_tag() }}
     <p>
         {{ form.username.label }}<br>
@@ -32,6 +32,15 @@
     <p>
         {{ form.password2.label }}<br>
         {{ form.password2(size=32) }} <br>
+
+        {%  for error in form.password2.errors %}
+        <span style="color:red">[{{ error }}</span>
+        {% endfor %}
+
+    </p>
+   <p>
+        Picture<br>
+        <input type="file" name="picture"> <br>
 
         {%  for error in form.password2.errors %}
         <span style="color:red">[{{ error }}</span>
