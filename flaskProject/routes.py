@@ -1,12 +1,15 @@
+import json
 import os
 from datetime import datetime
+import dataanalysis
 from urllib.parse import urlparse
 
-from flask import render_template, flash, redirect, url_for, request
+from flask import render_template, flash, redirect, url_for, request, jsonify
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.utils import secure_filename
 
 from app import app, db
+from dataanalysis import DataAnalysis
 from form import LoginForm, RegistrationForm, EditProfileForm
 from models import User
 import werkzeug.urls
@@ -89,3 +92,9 @@ def edit_profile():
         form.about_me.data = current_user.about_me
         form.website.data = current_user.website
     return render_template('edit_profile.html', title='Edit Profile', form=form)
+@app.route('/file-read')
+def read_file():
+    d=DataAnalysis()
+    returned_data=json.dumps(d.read_file('data/tv_shows.csv','genre','Drama'))
+    #return d.read_raw_csv_file_and_return_data('data/tv_shows.csv')
+    return render_template('render_csv.html', data=returned_data)
