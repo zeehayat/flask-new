@@ -1,6 +1,11 @@
+import csv
 import json
 import os
 from datetime import datetime
+
+import pandas as pd
+from sqlalchemy import text
+
 import dataanalysis
 from urllib.parse import urlparse
 
@@ -11,7 +16,7 @@ from werkzeug.utils import secure_filename
 from app import app, db
 from dataanalysis import DataAnalysis
 from form import LoginForm, RegistrationForm, EditProfileForm
-from models import User
+from models import User, Netflix
 import werkzeug.urls
 
 @login_required
@@ -32,7 +37,7 @@ def login():
             return redirect(url_for('login'))
         login_user(user, remember=form.remember_me.data)
         next_page = request.args.get('next')
-        if not next_page or url_parse(next_page).netloc !='':
+        if not next_page or urlparse(next_page).netloc !='':
             next_page = url_for('login')
         return redirect(url_for('login'))
 
@@ -98,3 +103,7 @@ def read_file():
     returned_data=json.dumps(d.read_file('data/tv_shows.csv','genre','Drama'))
     #return d.read_raw_csv_file_and_return_data('data/tv_shows.csv')
     return render_template('render_csv.html', data=returned_data)
+
+@app.route('/csv')
+def read_csv():
+   return 'Hello World'#db.session.execute(text('SELECT * from netflix'))
