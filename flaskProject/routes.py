@@ -2,6 +2,7 @@ import csv
 import json
 import os
 from datetime import datetime
+from pprint import pprint
 
 import pandas as pd
 from sqlalchemy import text
@@ -106,4 +107,12 @@ def read_file():
 
 @app.route('/csv')
 def read_csv():
-   return 'Hello World'#db.session.execute(text('SELECT * from netflix'))
+   data= db.session.query(Netflix).all()
+   lst=[]
+   mydict={}
+   for n in data:
+       lst.append(n.title)
+       lst.append(n.cast)
+       lst.append(n.listed_in)
+       mydict['data']=lst
+   return render_template('temp.html', data=mydict)
