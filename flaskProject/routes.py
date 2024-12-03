@@ -107,12 +107,11 @@ def read_file():
 
 @app.route('/csv')
 def read_csv():
-   data= db.session.query(Netflix).all()
-   lst=[]
-   mydict={}
-   for n in data:
-       lst.append(n.title)
-       lst.append(n.cast)
-       lst.append(n.listed_in)
-       mydict['data']=lst
-   return render_template('temp.html', data=mydict)
+   #movies= db.session.execute(db.select(Netflix).scalars())
+   movies = db.session.execute(db.select(Netflix)).fetchmany(5)
+
+   return render_template('temp.html', data=movies)
+
+@app.route('/search-movies')
+def search_movies():
+    return render_template('search.html')

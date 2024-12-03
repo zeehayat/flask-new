@@ -6,7 +6,7 @@
     <title>Welcome to Zeenux Page</title>
     {% endif %}
 <!-- Minified version -->
-
+{{ bootstrap.load_css() }}
 </head>
 <body>
 <div>
@@ -32,5 +32,7 @@ Microblog:
 {% block content %}
 	
 {% endblock %}
+{{ bootstrap.load_js() }}
+
 </body>
 </html>

@@ -1,5 +1,40 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <div class="container-fluid">
+
+
+    <div class="row justify-content-md-center">
+        {% for records in data %}
+
+        {% for row in records %}
+
+             <div class="col-xl bg-light">
+             <div class="card ">
+                 <div class="card-header"><b> {{ row.title }} </b></div>
+                 <div class="align-center">
+                 <button type="button" style="width:60px" class="btn btn-primary ">
+
+                     Like</button>
+                    </div>
+                 <h6 class="card-body">
+                    {% if not row.director is none %}
+                    <h6 class="subtitle"> Director: {{ row.director }} </h6>
+                     {% endif %}
+                 {% if not row.cast is none %}
+                    <h6 class="card-subtitle mb-2 text-muted">Cast: {{ row.cast }} </h6>
+                 {% endif %}
+                    <p class="card-text">{{ row.description }}</p>
+                 </h6>
+        <!-- end card -->
+             </div>
+             </div>
+
+            {% endfor %}
+
+    {% endfor %}
+    </div>
+</div>
 	{{ data }}
+    </div>
 {% endblock %}
